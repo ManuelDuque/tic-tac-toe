@@ -2,7 +2,7 @@ import { Turn, WinningCombination } from './Constants'
 
 export type Player = Turn.X | Turn.O;
 export type BoardType = Array<string | null>
-export type Winner = Player | null | undefined
+export type Winner = Player | null | boolean
 
 export function isWinner(board: BoardType, player: Player) : Winner {
   const winningCombination = WinningCombination.find(
@@ -10,7 +10,7 @@ export function isWinner(board: BoardType, player: Player) : Winner {
       return board[combination[0]] === player && board[combination[1]] === player && board[combination[2]] === player
     }
   )
-  return winningCombination ? player : undefined
+  return winningCombination ? player : null
 }
 
 export function nextTurn(turn: Player) : Player {
@@ -33,7 +33,7 @@ export function isMobileDevice() : boolean {
       ) check = true
     }
   ) (
-    navigator.userAgent || navigator.vendor || window.opera
+    navigator.userAgent || navigator.vendor || (window as any).opera
   )
   return check
 }

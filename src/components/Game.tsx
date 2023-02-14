@@ -30,9 +30,8 @@ const loadInitialTurn = () : Player => {
 }
 
 const loadInitialWinner = () : Winner => {
-  const winner = window.localStorage.getItem('winner')
-  if (winner === 'undefined' || winner === undefined) return undefined
-  if (winner === 'null' || winner === null) return null
+  const winner = window.localStorage.getItem('winner') as string | null
+  if (!winner) return null
   return JSON.parse(winner) as Winner
 }
 
@@ -72,7 +71,7 @@ export function Game() {
   const reset = () => {
     setBoard(Array(9).fill(null) as BoardType)
     setTurn(Turn.X as Player)
-    setWinner(undefined)
+    setWinner(null)
     window.localStorage.removeItem('turn')
     window.localStorage.removeItem('board')
     window.localStorage.removeItem('winner')
@@ -100,13 +99,7 @@ export function Game() {
           </button>
         </WinnerModal>
 
-        <FollowEffect
-          active={followEffectActive}
-          onMobileEventDragStop={
-            () => {
-              console.log('onMobileEventDragStop')
-            }
-          }>
+        <FollowEffect active={followEffectActive}>
           {turn}
         </FollowEffect>
 

@@ -12,7 +12,7 @@ export function Square( props : SquareProps ) {
   
   const { id, onClick, selected, children, className } = props
 
-  let squareClassName = 'w-[100px] h-[100px] border-2 border-gray-300 rounded-md place-items-center text-4xl'
+  let squareClassName = 'clickable w-[100px] h-[100px] border-2 border-gray-300 rounded-md place-items-center text-4xl'
   if (selected !== undefined && selected) {
     squareClassName += ' text-gray-50 bg-blue-500'
   }

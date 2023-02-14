@@ -3,16 +3,23 @@ import { isMobileDevice } from '../Logic'
 
 export interface IFollowEffect {
     active: boolean,
-    children?: ReactNode,
-    onMobileEventDragStop: (event: TouchEvent) => void
+    children?: ReactNode
 }
 
 export function FollowEffect( props: IFollowEffect ) {
 
-  const { active, children, onMobileEventDragStop } = props
+  const { active, children } = props
 
   const [position, setPosition] = useState({ x: 0, y: 0 })
   
+  const onMobileEventDragStop = (event: any) => {
+    const { clientX, clientY } = event.changedTouches[0]
+    const element = document.elementFromPoint(clientX, clientY)
+    if (element?.className.includes('clickable')) {
+      (element as any).click()
+    }
+  }
+
   useEffect(
     () => {
       const isMobile = isMobileDevice()

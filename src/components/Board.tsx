@@ -15,10 +15,10 @@ export function Board() {
     setBoard(newBoard)
     // Check if there is a winner
     const newWinner = isWinner(newBoard, turn)
-    if (newWinner !== undefined) {
+    if (newWinner !== null) {
       setWinner(newWinner)
     } else if (!newBoard.includes(null)) {
-      setWinner(null)
+      setWinner(false)
     }
     // Update the turn
     const newTurn = nextTurn(turn)

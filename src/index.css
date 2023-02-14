@@ -35,3 +35,6 @@ body {
     overflow: hidden;
 }
 
+.clickable {
+    cursor: pointer;
+}
