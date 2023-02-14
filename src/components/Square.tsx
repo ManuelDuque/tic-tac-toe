@@ -1,27 +1,40 @@
 import React, { ReactNode } from 'react'
 
 interface SquareProps {
-    id: number,
-    onClick: (index: number) => void,
-    selected: boolean,
-    children?: ReactNode
+    id?: number | undefined,
+    onClick?: (index: number) => void | undefined,
+    selected?: boolean | undefined,
+    children?: ReactNode | undefined,
+    className?: string | undefined
 }
 
 export function Square( props : SquareProps ) {
   
-  const { id, onClick, selected, children } = props
+  const { id, onClick, selected, children, className } = props
 
-  let className = 'w-[100px] h-[100px] border-2 border-gray-300 rounded-md place-items-center text-4xl cursor-pointer'
+  let squareClassName = 'w-[100px] h-[100px] border-2 border-gray-300 rounded-md place-items-center text-4xl cursor-pointer'
   if (selected !== undefined && selected) {
-    className += ' text-gray-50 bg-blue-500'
+    squareClassName += ' text-gray-50 bg-blue-500'
+  }
+
+  if (className !== undefined) {
+    squareClassName += ` ${className}`
   }
 
   return (
     <div
-      className={className}
-      onClick={() => onClick(id)}
+      className={squareClassName}
+      onClick={
+        () => {
+          if (id !== undefined && onClick !== undefined) {
+            onClick(id)
+          }
+        }
+      }
     >
-      {children}
+      <div className='flex justify-center h-full items-center'>
+        {children}
+      </div>
     </div>
   )
 

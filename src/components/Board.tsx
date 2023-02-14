@@ -1,24 +1,42 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Square } from './Square'
+import { GameContext, IGameContext } from './Game'
+import { isWinner, nextTurn, updateBoard } from '../Logic'
 
 export function Board() {
   
-  const list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+  const gameContext = useContext(GameContext) as IGameContext
+  const { board, setBoard, turn, setTurn, winner, setWinner } = gameContext
+
+  const onBoardSquareClick = (index: number) => {
+    if (board[index] || winner) return
+    // Update the board
+    const newBoard = updateBoard(board, index, turn)
+    setBoard(newBoard)
+    // Check if there is a winner
+    const newWinner = isWinner(newBoard, turn)
+    if (newWinner !== undefined) {
+      setWinner(newWinner)
+    } else if (!newBoard.includes(null)) {
+      setWinner(null)
+    }
+    // Update the turn
+    const newTurn = nextTurn(turn)
+    setTurn(newTurn)
+  }
   
   return (
     <section className="grid grid-cols-3 gap-[10px]">
       {
-        list.map((item, index) => {
+        board.map((item, index) => {
           return (
             <Square
               key={index}
               id={index}
-              onClick={() => console.log(`Clicked on ${index}`)}
+              onClick={ onBoardSquareClick }
               selected={false}
             >
-              <div className='flex justify-center h-full items-center'>
-                {item}
-              </div>
+              {item}
             </Square>
           )
         })
