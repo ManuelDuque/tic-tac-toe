@@ -32,7 +32,7 @@ export function Square( props : SquareProps ) {
         }
       }
     >
-      <div className='flex justify-center h-full items-center'>
+      <div className='clickable flex justify-center h-full items-center'>
         {children}
       </div>
     </div>

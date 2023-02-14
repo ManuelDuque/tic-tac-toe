@@ -40,7 +40,7 @@ export function Game() {
   const [board, setBoard] = useState( loadInitialBoard() as BoardType )
   const [turn, setTurn] = useState( loadInitialTurn() as Player )
   const [winner, setWinner] = useState( loadInitialWinner() as Winner )
-  const [followEffectActive, setFollowEffectActive] = useState(false)
+  const [followEffectActive, setFollowEffectActive] = useState(true)
 
   useEffect(
     () => {
@@ -59,7 +59,7 @@ export function Game() {
   useEffect(
     () => {
       // Then the following effect is not active
-      if (winner !== undefined) {
+      if (winner !== null) {
         setFollowEffectActive(false)
       }
       return () => {

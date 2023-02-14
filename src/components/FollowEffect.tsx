@@ -11,11 +11,13 @@ export function FollowEffect( props: IFollowEffect ) {
   const { active, children } = props
 
   const [position, setPosition] = useState({ x: 0, y: 0 })
-  
+
   const onMobileEventDragStop = (event: any) => {
     const { clientX, clientY } = event.changedTouches[0]
     const element = document.elementFromPoint(clientX, clientY)
-    if (element?.className.includes('clickable')) {
+    const isClickable = element?.className.includes('clickable')
+    console.log(element?.className)
+    if (isClickable) {
       (element as any).click()
     }
   }
@@ -23,15 +25,19 @@ export function FollowEffect( props: IFollowEffect ) {
   useEffect(
     () => {
       const isMobile = isMobileDevice()
+      
       const handleMouseMove = (event: PointerEvent) => {
         const { clientX, clientY } = event
         setPosition({ x: clientX, y: clientY })
       }
+      
       const handleMobileMove = (event: TouchEvent) => {
         const { clientX, clientY } = event.touches[0]
         setPosition({ x: clientX, y: clientY })
       }
+
       if (isMobile) {
+        console.log('is mobile')
         window.addEventListener('touchmove', handleMobileMove)
         window.addEventListener('touchend', onMobileEventDragStop)
       } else {
