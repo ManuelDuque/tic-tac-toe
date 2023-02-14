@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import { Turn } from '../Constants'
 import { BoardType, Player, Winner } from '../Logic'
 import { Board } from './Board'
+import { FollowEffect } from './FollowEffect'
 import { TurnInfo } from './TurnInfo'
 import { WinnerModal } from './WinnerModal'
 
@@ -40,6 +41,7 @@ export function Game() {
   const [board, setBoard] = useState( loadInitialBoard() as BoardType )
   const [turn, setTurn] = useState( loadInitialTurn() as Player )
   const [winner, setWinner] = useState( loadInitialWinner() as Winner )
+  const [followEffectActive, setFollowEffectActive] = useState(false)
 
   useEffect(
     () => {
@@ -53,6 +55,18 @@ export function Game() {
         window.localStorage.removeItem('winner')
       }
     }, [turn]
+  )
+
+  useEffect(
+    () => {
+      // Then the following effect is not active
+      if (winner !== undefined) {
+        setFollowEffectActive(false)
+      }
+      return () => {
+        setFollowEffectActive(true)
+      }
+    }, [winner]
   )
 
   const reset = () => {
@@ -85,6 +99,16 @@ export function Game() {
             Reiniciar
           </button>
         </WinnerModal>
+
+        <FollowEffect
+          active={followEffectActive}
+          onMobileEventDragStop={
+            () => {
+              console.log('onMobileEventDragStop')
+            }
+          }>
+          {turn}
+        </FollowEffect>
 
       </main>
     </GameContext.Provider>

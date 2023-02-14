@@ -32,5 +32,6 @@ body {
     min-width: 320px;
     min-height: inherit;
     overscroll-behavior: contain;
+    overflow: hidden;
 }
 
