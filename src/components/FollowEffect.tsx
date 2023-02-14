@@ -56,7 +56,7 @@ export function FollowEffect( props: IFollowEffect ) {
   if (!active) return <></>
 
   return (
-    <div className='block absolute top-[-20px] left-[-20px] w-[40px] h-[40px] rounded-[50%] pointer-events-none'
+    <div className='block absolute top-[-20px] left-[-20px] w-[40px] h-[40px] rounded-[50%] pointer-events-none text-4xl'
       style={{
         transform: `translate(${position.x}px, ${position.y}px)`,
         transition: 'transform 0.1s ease-out'
