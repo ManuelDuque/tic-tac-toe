@@ -35,6 +35,4 @@ body {
     overflow: hidden;
 }
 
-.clickable {
-    cursor: pointer;
-}
+.clickable { /* cursor: pointer; */ }
