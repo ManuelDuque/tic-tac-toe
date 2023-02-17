@@ -15,9 +15,7 @@ interface IUseFollowEffect {
 const onMobileEventDragStop = (event: any) => {
   const { clientX, clientY } = event.changedTouches[0]
   const element = document.elementFromPoint(clientX, clientY)
-  if (!element || element.className) return
   const isClickable = element?.className.includes('clickable')
-  console.log(element?.className)
   if (isClickable) {
     (element as any).click()
   }
