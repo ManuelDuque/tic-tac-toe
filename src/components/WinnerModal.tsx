@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Turn } from '../Constants'
-import { GameContext, IGameContext } from './Game'
 import { Square } from './Square'
 import confetti from 'canvas-confetti'
+import { useWinner } from '../hooks/useWinner'
 
 export interface IWinnerModalProps {
     children?: React.ReactNode | undefined
@@ -10,9 +10,8 @@ export interface IWinnerModalProps {
 
 export function WinnerModal( props: IWinnerModalProps ) {
   
-  const gameContext = useContext(GameContext) as IGameContext
-  const { winner } = gameContext
-  
+  const { winner } = useWinner()
+
   const { children } = props
 
   if (winner === undefined || winner === null) return (<></>)
